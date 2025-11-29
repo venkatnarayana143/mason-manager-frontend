@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import api from '../services/api';
 import { Users, UserCheck, DollarSign } from 'lucide-react';
 
 const Dashboard = () => {
+    const { t } = useTranslation();
     const [stats, setStats] = useState({
         totalEmployees: 0,
         presentToday: 0,
@@ -34,18 +36,18 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
-    if (loading) return <div className="p-6">Loading...</div>;
+    if (loading) return <div className="p-6">{t('loading')}</div>;
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
+            <h2 className="text-2xl font-bold mb-6">{t('dashboard')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
                     <div className="p-3 bg-blue-100 rounded-full mr-4">
                         <Users className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
-                        <p className="text-gray-500">Total Employees</p>
+                        <p className="text-gray-500">{t('total_employees')}</p>
                         <p className="text-2xl font-bold">{stats.totalEmployees}</p>
                     </div>
                 </div>
@@ -55,7 +57,7 @@ const Dashboard = () => {
                         <UserCheck className="w-8 h-8 text-green-600" />
                     </div>
                     <div>
-                        <p className="text-gray-500">Present Today</p>
+                        <p className="text-gray-500">{t('active_today')}</p>
                         <p className="text-2xl font-bold">{stats.presentToday}</p>
                     </div>
                 </div>
@@ -65,7 +67,7 @@ const Dashboard = () => {
                         <DollarSign className="w-8 h-8 text-yellow-600" />
                     </div>
                     <div>
-                        <p className="text-gray-500">Total Paid</p>
+                        <p className="text-gray-500">{t('total_paid')}</p>
                         <p className="text-2xl font-bold">₹{stats.totalPaid.toLocaleString()}</p>
                     </div>
                 </div>

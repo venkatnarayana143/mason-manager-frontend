@@ -1,15 +1,18 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Users, Calendar, DollarSign } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Layout = () => {
     const location = useLocation();
+    const { t } = useTranslation();
 
     const navItems = [
-        { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-        { path: '/employees', label: 'Employees', icon: Users },
-        { path: '/attendance', label: 'Attendance', icon: Calendar },
-        { path: '/payments', label: 'Payments', icon: DollarSign },
+        { path: '/', label: t('dashboard'), icon: LayoutDashboard },
+        { path: '/employees', label: t('employees'), icon: Users },
+        { path: '/attendance', label: t('attendance'), icon: Calendar },
+        { path: '/payments', label: t('payments'), icon: DollarSign },
     ];
 
     return (
@@ -23,6 +26,9 @@ const Layout = () => {
                         </div>
                         <h1 className="text-2xl font-bold tracking-tight">Mason<span className="text-gray-900">Manager</span></h1>
                     </div>
+                </div>
+                <div className="px-4 pt-4">
+                    <LanguageSwitcher />
                 </div>
                 <nav className="flex-1 px-4 py-6 space-y-2">
                     {navItems.map((item) => {
@@ -60,6 +66,7 @@ const Layout = () => {
                         </div>
                         <h1 className="text-lg font-bold text-gray-900">Mason Manager</h1>
                     </div>
+                    <LanguageSwitcher />
                 </header>
 
                 <main className="flex-1 p-6 md:p-10 overflow-auto">

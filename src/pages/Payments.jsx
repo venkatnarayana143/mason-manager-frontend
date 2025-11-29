@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import api from '../services/api';
 import { Plus } from 'lucide-react';
 
 const Payments = () => {
+    const { t } = useTranslation();
     const [payments, setPayments] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [showForm, setShowForm] = useState(false);
@@ -56,19 +58,19 @@ const Payments = () => {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Payments</h2>
+                <h2 className="text-2xl font-bold">{t('payments')}</h2>
                 <button
                     onClick={() => setShowForm(!showForm)}
                     className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-blue-700"
                 >
                     <Plus className="w-4 h-4 mr-2" />
-                    Record Payment
+                    {t('add_payment')}
                 </button>
             </div>
 
             {showForm && (
                 <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-                    <h3 className="text-lg font-semibold mb-4">New Payment</h3>
+                    <h3 className="text-lg font-semibold mb-4">{t('add_payment')}</h3>
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <select
                             className="border p-2 rounded"
@@ -76,14 +78,14 @@ const Payments = () => {
                             onChange={(e) => setFormData({ ...formData, employeeId: e.target.value })}
                             required
                         >
-                            <option value="">Select Employee</option>
+                            <option value="">{t('select_role')}</option>
                             {employees.map(emp => (
                                 <option key={emp.id} value={emp.id}>{emp.name}</option>
                             ))}
                         </select>
                         <input
                             type="number"
-                            placeholder="Amount (₹)"
+                            placeholder={t('amount')}
                             className="border p-2 rounded"
                             value={formData.amount}
                             onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
@@ -98,7 +100,7 @@ const Payments = () => {
                         />
                         <input
                             type="text"
-                            placeholder="Notes"
+                            placeholder={t('notes')}
                             className="border p-2 rounded"
                             value={formData.notes}
                             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -109,13 +111,13 @@ const Payments = () => {
                                 onClick={() => setShowForm(false)}
                                 className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
                             >
-                                Cancel
+                                {t('cancel')}
                             </button>
                             <button
                                 type="submit"
                                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                             >
-                                Save
+                                {t('save')}
                             </button>
                         </div>
                     </form>
@@ -126,10 +128,10 @@ const Payments = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('date')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('name')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('amount')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('notes')}</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
