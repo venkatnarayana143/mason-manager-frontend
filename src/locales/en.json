@@ -43,5 +43,9 @@
     "no_employees": "No employees found",
     "no_payments": "No payments found",
     "today_attendance": "Today's Attendance",
-    "weekly_summary": "Weekly Summary"
+    "weekly_summary": "Weekly Summary",
+    "view_history": "View History",
+    "mark_attendance_for": "Mark Attendance for",
+    "attendance_history_for": "Attendance History for",
+    "no_records_found": "No records found"
 }

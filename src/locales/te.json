@@ -43,5 +43,9 @@
     "no_employees": "పనివారు ఎవరూ లేరు",
     "no_payments": "చెల్లింపులు ఏవీ లేవు",
     "today_attendance": "ఈ రోజు హాజరు",
-    "weekly_summary": "వారపు నివేదిక"
+    "weekly_summary": "వారపు నివేదిక",
+    "view_history": "చరిత్ర చూడండి",
+    "mark_attendance_for": "హాజరు వేయండి: ",
+    "attendance_history_for": "హాజరు చరిత్ర: ",
+    "no_records_found": "రికార్డులు ఏవీ లేవు"
 }
