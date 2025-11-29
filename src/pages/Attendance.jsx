@@ -15,6 +15,7 @@ const Attendance = () => {
 
     // Mark Attendance Form State
     const [markForm, setMarkForm] = useState({
+        employeeId: '',
         date: new Date().toISOString().split('T')[0],
         status: 'PRESENT'
     });
@@ -39,9 +40,10 @@ const Attendance = () => {
         }
     };
 
-    const openMarkModal = (employee) => {
+    const openMarkModal = (employee = null) => {
         setSelectedEmployee(employee);
         setMarkForm({
+            employeeId: employee ? employee.id : '',
             date: new Date().toISOString().split('T')[0],
             status: 'PRESENT'
         });
@@ -69,7 +71,7 @@ const Attendance = () => {
         e.preventDefault();
         try {
             await api.post('/attendance', {
-                employee: { id: selectedEmployee.id },
+                employee: { id: markForm.employeeId },
                 date: markForm.date,
                 status: markForm.status
             });
@@ -104,6 +106,13 @@ const Attendance = () => {
         <div>
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold">{t('attendance')}</h2>
+                <button
+                    onClick={() => openMarkModal(null)}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-blue-700"
+                >
+                    <Edit className="w-4 h-4 mr-2" />
+                    {t('mark_attendance')}
+                </button>
             </div>
 
             <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -145,13 +154,29 @@ const Attendance = () => {
             </div>
 
             {/* Mark Attendance Modal */}
-            {showMarkModal && selectedEmployee && (
+            {showMarkModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
                         <h3 className="text-lg font-bold mb-4">
-                            {t('mark_attendance_for')} {selectedEmployee.name}
+                            {selectedEmployee ? `${t('mark_attendance_for')} ${selectedEmployee.name}` : t('mark_attendance')}
                         </h3>
                         <form onSubmit={handleMarkSubmit} className="space-y-4">
+                            {!selectedEmployee && (
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('name')}</label>
+                                    <select
+                                        required
+                                        className="w-full border rounded-lg p-2"
+                                        value={markForm.employeeId}
+                                        onChange={(e) => setMarkForm({ ...markForm, employeeId: e.target.value })}
+                                    >
+                                        <option value="">{t('select_role')}</option>
+                                        {employees.map(emp => (
+                                            <option key={emp.id} value={emp.id}>{emp.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">{t('date')}</label>
                                 <input
